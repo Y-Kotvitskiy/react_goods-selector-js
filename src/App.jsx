@@ -15,51 +15,50 @@ export const goods = [
   'Garlic',
 ];
 
-const startId = 8;
+const startGood = 'Jam';
 
 export const App = () => {
-  const [goodId, setGoodId] = useState(startId);
+  const [selectedGood, setSelectedGood] = useState(startGood);
 
   return (
     <main className="section container">
-      {goodId === -1 ? (
+      {selectedGood === '' ? (
         <h1 className="title is-flex is-align-items-center">
           No goods selected
         </h1>
       ) : (
         <h1 className="title is-flex is-align-items-center">
-          {goods[goodId]} is selected
+          {selectedGood} is selected
           <button
             data-cy="ClearButton"
             type="button"
             className="delete ml-3"
-            onClick={() => setGoodId(-1)}
+            onClick={() => setSelectedGood(-1)}
           />
         </h1>
       )}
       <table className="table">
         <tbody>
-          {goods.map((good, index) => (
+          {goods.map(good => (
             <tr
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
+              key={good}
               data-cy="Good"
               className={
-                index === goodId ? 'has-background-success-light' : null
+                good === selectedGood ? 'has-background-success-light' : null
               }
             >
               <td>
                 <button
-                  data-cy={index === goodId ? 'RemoveButton' : 'AddButton'}
+                  data-cy={good === selectedGood ? 'RemoveButton' : 'AddButton'}
                   type="button"
-                  className={`button ${index === goodId ? 'is-info' : ''}`}
+                  className={`button ${good === selectedGood ? 'is-info' : ''}`}
                   onClick={() => {
-                    const newGoodId = index === goodId ? -1 : index;
+                    const newGoodId = good === selectedGood ? '' : good;
 
-                    setGoodId(newGoodId);
+                    setSelectedGood(newGoodId);
                   }}
                 >
-                  {index === goodId ? '-' : '+'}
+                  {good === selectedGood ? '-' : '+'}
                 </button>
               </td>
               <td data-cy="GoodTitle" className="is-vcentered">
